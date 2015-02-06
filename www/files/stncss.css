@@ -8,9 +8,8 @@
 	padding-top: 10px;
 }
 #div1 .bar .boldi{
-	padding: 2px;
 	padding-left: 5px;
-	font-size: 24px;
+	font-size: 18px;
 	font-style:italic; 
 	text-decoration: underline;
 	color:#6a6a6a; 
@@ -18,7 +17,6 @@
 }
 
 #div1 .bar .address{
-
 	font-size: 12px;
 	color: black;
 	text-align: left;
