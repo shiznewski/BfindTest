@@ -1,113 +1,155 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Capture Photo</title>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Bar Finder</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="files/main.css">
+		<link rel="stylesheet" type="text/css" href="files/stncss.css">
+		<script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+		
+<script>
+function openDiv(one,two,three) {
+    document.getElementById(one.id).style.display = 'none';
+    document.getElementById(two).style.display = 'block';
+	document.getElementById(three).style.display = 'block';
+}
 
-    <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-	<script type="text/javascript" src="js/index.js"></script>
-    <script type="text/javascript" charset="utf-8">
+function closeDiv(one,two,three) {
+    document.getElementById(one.id).style.display = 'none'
+    document.getElementById(two).style.display = 'block';
+	document.getElementById(three).style.display = 'none';
+}
 
-    var pictureSource;   // picture source
-    var destinationType; // sets the format of returned value
+</script>
+	</head>
 
-    // Wait for device API libraries to load
-    //
-    document.addEventListener("deviceready",onDeviceReady,false);
+	<body>
+		<div class="container" id="container">
+			
+			<header>
+				<div class="top">
+					<div style="text-align: center;margin: 0 auto; padding: 5px;">
+					<img src="files/logo.png"/>
+					</div>
+					
+				</div>
+				<nav>
+					<ul>
+					</ul>
+				</nav>
+			</header>
+			<section class="banner home">
+				<div class="form-style-2" id="form-style-2">
+					<div class="form-style-2-heading" id="form-style-2-heading">Search Bars For: 3a</div>
+					<form action="" id="res" method="post" onsubmit="return false;">
+						<label for="field1"><span>Zipcode <span class="required">*</span></span><input type="text" class="input-field" name="zipcode" value="" /></label>
 
-    // device APIs are available
-    //
-    function onDeviceReady() {
-        pictureSource=navigator.camera.PictureSourceType;
-        destinationType=navigator.camera.DestinationType;
-    }
+			<div class="collapsible">
+					<a href="#" id="billardopen" onclick="openDiv(this, 'billardclose', 'billard');">Show Game Options</a> 
+					<a href="#" id="billardclose" style="display: none;" onclick="closeDiv(this, 'billardopen', 'billard');">Hide Game Options</a> 
+					<div id="billard">
+							<label for="field2"><span>Pool Tables<span class="required"></span></span><input style="height:20px;" type="checkbox" class="input-field" name="pool" value="" /></label>
+							<label for="field3"><span>Darts<span class="required"></span></span><input style="height:20px;" type="checkbox" class="input-field" name="darts" value="" /></label>
+							<label for="field3"><span>Golden Tee<span class="required"></span></span><input style="height:20px;" type="checkbox" class="input-field" name="goldentee" value="" /></label>
+				</div>
+			</div>
+						<hr/>
+						
+			<div class="collapsible">
+					<a href="#" id="musicopen" onclick="openDiv(this, 'musicclose', 'music');">Show Music Options</a> 
+					<a href="#" id="musicclose" style="display: none;" onclick="closeDiv(this, 'musicopen', 'music');">Hide Music Options</a> 
+					<div id="music">
+							<label for="field2"><span>DJ<span class="required"></span></span><input style="height:20px;" type="checkbox" class="input-field" name="dj" value="" /></label>
+							<label for="field3"><span>Band<span class="required"></span></span><input style="height:20px;" type="checkbox" class="input-field" name="band" value="" /></label>
+							<label for="field3"><span>Touch Tunes<span class="required"></span></span><input style="height:20px;" type="checkbox" class="input-field" name="touchtunes" value="" /></label>
+				</div>
+			</div>
+						<hr/>
+						
+						<label for="field3"><span>Match criteria<span class="required"></span></span>
+							<select name="allorsome" style="height: 30px;">
+								<option value="ALL">ALL</option>
+								<option value="ANY" selected="selected">ANY</option>
+							</select>
+						</label><br/>			
+						<a href="#" class="tap-to-call" id="dihbutton"><span>Tap to Search</span></a>
+					</form>				
+				<div id="response" style="width: 320px; margin: 0 auto; text-align: center;">
+					<div id="div1"></div>
+				</div>
+				
+			</section>
 
-    // Called when a photo is successfully retrieved
-    //
-    function onPhotoDataSuccess(imageData) {
-      // Uncomment to view the base64-encoded image data
-      // console.log(imageData);
 
-      // Get image handle
-      //
-      var smallImage = document.getElementById('smallImage');
+			<section class="expand pack closed">
 
-      // Unhide image elements
-      //
-      smallImage.style.display = 'block';
+				<a href="#" class="expand-btn">Bar Owners</a>
 
-      // Show the captured photo
-      // The in-line CSS rules are used to resize the image
-      //
-      smallImage.src = "data:image/jpeg;base64," + imageData;
-    }
+				<div class="content">
+					<h3>Connect with customers</h3>
+					<ul>
+						<li>Update beer listings</li>
+                        <li>Announce specials</li>
+						<li>Promote games, dj's, and special events</li>
+						
+					</ul>
+				
 
-    // Called when a photo is successfully retrieved
-    //
-    function onPhotoURISuccess(imageURI) {
-      // Uncomment to view the image file URI
-      // console.log(imageURI);
+					<a href="#" class="tap-to-call"><span>Register Now</span></a>				</div>
+			</section>
+			<section class="expand pack closed">
 
-      // Get image handle
-      //
-      var largeImage = document.getElementById('largeImage');
+				<a href="#" class="expand-btn">Bar Patrons </a>
+				<div class="content">
+					<h3>No wasted trips</h3>
+					<ul>
+						<li>Know beer listings before arrival</li>
+						<li>Know arcade and billiard options</li>
+						<li>Know dj or band situation a head of time.</li>
+					</ul>
 
-      // Unhide image elements
-      //
-      largeImage.style.display = 'block';
+					<a href="#" class="tap-to-call"><span>Register now</span></a>				</div>
 
-      // Show the captured photo
-      // The in-line CSS rules are used to resize the image
-      //
-      largeImage.src = imageURI;
-    }
+			</section>
 
-    // A button will call this function
-    //
-    function capturePhoto() {
-      // Take picture using device camera and retrieve image as base64-encoded string
-      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 50,
-        destinationType: destinationType.DATA_URL });
-    }
+			<footer>
+				
+				<nav>
+					
+				</nav>
+			</footer>
 
-    // A button will call this function
-    //
-    function capturePhotoEdit() {
-      // Take picture using device camera, allow edit, and retrieve image as base64-encoded string
-      navigator.camera.getPicture(onPhotoDataSuccess, onFail, { quality: 20, allowEdit: true,
-        destinationType: destinationType.DATA_URL });
-    }
+		</div>
+		<div class="promoNumber numberDetector"></div>
 
-    // A button will call this function
-    //
-    function getPhoto(source) {
-      // Retrieve image file location from specified source
-      navigator.camera.getPicture(onPhotoURISuccess, onFail, { quality: 50,
-        destinationType: destinationType.FILE_URI,
-        sourceType: source });
-    }
-
-    // Called if something bad happens.
-    //
-    function onFail(message) {
-      alert('Failed because: ' + message);
-    }
-
-    </script>
-  </head>
-  <body>
-    <button onclick="capturePhoto();">Capture Photo1</button> <br>
-    <button onclick="capturePhotoEdit();">Capture Editable Photo</button> <br>
-    <button onclick="getPhoto(pictureSource.PHOTOLIBRARY);">From Photo Library</button><br>
-    <button onclick="getPhoto(pictureSource.SAVEDPHOTOALBUM);">From Photo Album</button><br>
-    <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
-    <img style="display:none;" id="largeImage" src="" />
 	
-	
-	
-	<button class="camera-control" onclick="capturePhoto2();">Capture Photo</button>
+	<script src="files/jquery.js"></script>
+	<script src="files/scripts.js"></script>
 
-<div style="text-align:center;margin:20px;">
-	<img id="cameraPic" src="" style="width:120px;height:120px;"></img>
-</div>
-  </body>
+	<script>
+		$(document).ready(function() {
+			//$('#form-style-2').on('click', '.tap-to-call', function (){
+			$('.tap-to-call').click(function(){
+				var str = $("#res").serialize();
+				$.ajax({
+					type: "POST",
+					url: "http://sndtracking.net/dev/bar_finder/address.php",
+					dataType: "text",
+					cache: false,
+					data: str,
+					success: function(data){
+						$("#div1").html(data);
+					},
+					error: function() {
+						alert('failed');
+					}					
+				}) 
+			});
+		});
+	</script>
+
+</body>
 </html>
+<!-- Localized -->
