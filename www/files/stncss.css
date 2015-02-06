@@ -2,7 +2,8 @@
 	width: 280px;
 	text-align: left;
 	display: block;
-	padding: 2px;
+	padding: 0px;
+	margin: 0;
 	border-bottom: 1px solid red;
 	padding-top: 10px;
 }
