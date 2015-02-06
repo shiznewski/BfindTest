@@ -34,6 +34,8 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+		navigator.notification.alert('You are the winner!',  alertDismissed, 'Game Over', 'Done');
+
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -47,3 +49,65 @@ var app = {
         console.log('Received Event: ' + id);
     }
 };
+
+function showmessage(){
+navigator.notification.alert('Button Click',  alertDismissed, 'Game Over', 'Done');
+}
+
+function alertDismissed() {
+    // do something
+}
+
+
+function capturePhoto2(){
+    navigator.camera.getPicture(uploadPhoto,null,{sourceType:1,destinationType: destinationType.DATA_URL,quality:60});
+}
+
+function uploadPhoto(data){
+// this is where you would send the image file to server
+      var smallImage = document.getElementById('cameraPic');
+
+      // Unhide image elements
+      //
+      //smallImage.style.display = 'block';
+
+      // Show the captured photo
+      // The in-line CSS rules are used to resize the image
+      //
+      smallImage.src = "data:image/jpeg;base64," + data;	
+
+	// Successful upload to the server
+	/*
+	setTimeout(function() {
+    // do your thing here!
+		navigator.notification.alert(
+		'Your Photo has been uploaded',  // message
+		okay,                           // callback
+	    'Photo Uploaded',              // title
+	    'OK'                          // buttonName
+	);
+	}, 0);
+	*/
+
+	// upload has failed Fail
+
+	/* 
+
+	if (failedToUpload){
+
+	navigator.notification.alert(
+		'Your Photo has failed to upload',
+		failedDismissed,
+	    'Photo Not Uploaded',
+	    'OK'
+		);
+
+	} 
+	*/
+
+
+}
+
+function okay(){
+	// Do something
+}
