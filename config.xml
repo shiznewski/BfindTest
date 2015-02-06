@@ -70,5 +70,5 @@
 <gap:config-file platform="ios" parent="UIViewControllerBasedStatusBarAppearance">
     <false/>
 </gap:config-file>  
-  
+<preference name="fullscreen" value="true" />
 </widget>
