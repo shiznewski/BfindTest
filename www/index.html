@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Bar Finder</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+		<link rel="stylesheet" type="text/css" href="files/main.css">
+		<link rel="stylesheet" type="text/css" href="files/stncss.css">
+		
+<style type="text/css">
+.form-style-2{
+    max-width: 500px;
+    padding: 10px 6px 5px 10px;
+    font: 13px Arial, Helvetica, sans-serif;
+}
+.form-style-2-heading{
+    font-weight: bold;
+    font-style: italic;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
+    font-size: 15px;
+    padding-bottom: 3px;
+}
+.form-style-2 label{
+    display: block;
+    margin: 0px 0px 6px 0px;
+}
+.form-style-2 label > span{
+    width: 100px;
+    font-weight: bold;
+    float: left;
+    padding-top: 8px;
+    padding-right: 5px;
+}
+.form-style-2 span.required{
+    color:red;
+}
+.form-style-2 .tel-number-field{
+    width: 40px;
+    text-align: center;
+}
+.form-style-2 input.input-field{
+    width: 48%;
+   
+}
+
+.form-style-2 input.input-field,
+.form-style-2 .tel-number-field,
+.form-style-2 .textarea-field,
+ .form-style-2 .select-field{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border: 1px solid #C2C2C2;
+    box-shadow: 1px 1px 4px #EBEBEB;
+    -moz-box-shadow: 1px 1px 4px #EBEBEB;
+    -webkit-box-shadow: 1px 1px 4px #EBEBEB;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    padding: 7px;
+    outline: none;
+}
+.form-style-2 .input-field:focus,
+.form-style-2 .tel-number-field:focus,
+.form-style-2 .textarea-field:focus,  
+.form-style-2 .select-field:focus{
+    border: 1px solid #0C0;
+}
+.form-style-2 .textarea-field{
+    height:100px;
+    width: 55%;
+}
+.form-style-2 input[type=submit],
+.form-style-2 input[type=button]{
+    border: none;
+    padding: 8px 15px 8px 15px;
+    background: #FF8500;
+    color: #fff;
+    box-shadow: 1px 1px 4px #DADADA;
+    -moz-box-shadow: 1px 1px 4px #DADADA;
+    -webkit-box-shadow: 1px 1px 4px #DADADA;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+}
+.form-style-2 input[type=submit]:hover,
+.form-style-2 input[type=button]:hover{
+    background: #EA7B00;
+    color: #fff;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {  /*safari and chrome*/
+    select {
+        height:30px;
+        line-height:30px;
+        background:#f4f4f4;
+    } 
+}
+select::-moz-focus-inner { /*Remove button padding in FF*/ 
+    border: 0;
+    padding: 0;
+}
+@-moz-document url-prefix() { /* targets Firefox only */
+
+}        
+@media screen\0 { /* IE Hacks: targets IE 8, 9 and 10 */        
+    select {
+        height:30px;
+        line-height:30px;
+    }     
+}
+</style>		
+
+<script>
+function openDiv(one,two,three) {
+    document.getElementById(one.id).style.display = 'none';
+    document.getElementById(two).style.display = 'block';
+	document.getElementById(three).style.display = 'block';
+}
+
+function closeDiv(one,two,three) {
+    document.getElementById(one.id).style.display = 'none'
+    document.getElementById(two).style.display = 'block';
+	document.getElementById(three).style.display = 'none';
+}
+
+</script>
+	</head>
+
+	<body>
+		<div class="container" id="container">
+			
+			<header>
+				<div class="top">
+					<div style="text-align: center;margin: 0 auto; padding: 5px;">
+					<img src="files/logo.png"/>
+					</div>
+					
+				</div>
+				<nav>
+					<ul>
+					</ul>
+				</nav>
+			</header>
+			<section class="banner home">
+				<div class="form-style-2" id="form-style-2">
+					<div class="form-style-2-heading" id="form-style-2-heading">Search Bars For:</div>
+					<form action="" id="res" method="post" onsubmit="return false;">
+						<label for="field1"><span>Zipcode <span class="required">*</span></span><input type="text" class="input-field" name="zipcode" value="" /></label>
+
+			<div class="collapsible">
+					<a href="#" id="billardopen" onclick="openDiv(this, 'billardclose', 'billard');">Show Game Options</a> 
+					<a href="#" id="billardclose" style="display: none;" onclick="closeDiv(this, 'billardopen', 'billard');">Hide Game Options</a> 
+					<div id="billard">
+							<label for="field2"><span>Pool Tables<span class="required"></span></span><input style="height:20px;" type="checkbox" class="input-field" name="pool" value="" /></label>
+							<label for="field3"><span>Darts<span class="required"></span></span><input style="height:20px;" type="checkbox" class="input-field" name="darts" value="" /></label>
+							<label for="field3"><span>Golden Tee<span class="required"></span></span><input style="height:20px;" type="checkbox" class="input-field" name="goldentee" value="" /></label>
+				</div>
+			</div>
+						<hr/>
+						
+			<div class="collapsible">
+					<a href="#" id="musicopen" onclick="openDiv(this, 'musicclose', 'music');">Show Music Options</a> 
+					<a href="#" id="musicclose" style="display: none;" onclick="closeDiv(this, 'musicopen', 'music');">Hide Music Options</a> 
+					<div id="music">
+							<label for="field2"><span>DJ<span class="required"></span></span><input style="height:20px;" type="checkbox" class="input-field" name="dj" value="" /></label>
+							<label for="field3"><span>Band<span class="required"></span></span><input style="height:20px;" type="checkbox" class="input-field" name="band" value="" /></label>
+							<label for="field3"><span>Touch Tunes<span class="required"></span></span><input style="height:20px;" type="checkbox" class="input-field" name="touchtunes" value="" /></label>
+				</div>
+			</div>
+						<hr/>
+						
+						<label for="field3"><span>Match criteria<span class="required"></span></span>
+							<select name="allorsome" style="height: 30px;">
+								<option value="ALL">ALL</option>
+								<option value="ANY" selected="selected">ANY</option>
+							</select>
+						</label><br/>			
+						<a href="#" class="tap-to-call" id="dihbutton"><span>Tap to Search</span></a>
+					</form>				
+				<div id="response" style="width: 320px; margin: 0 auto; text-align: center;">
+					<div id="div1"></div>
+				</div>
+				
+			</section>
+
+
+			<section class="expand pack closed">
+
+				<a href="#" class="expand-btn">Bar Owners</a>
+
+				<div class="content">
+					<h3>Connect with customers</h3>
+					<ul>
+						<li>Update beer listings</li>
+                        <li>Announce specials</li>
+						<li>Promote games, dj's, and special events</li>
+						
+					</ul>
+				
+
+					<a href="#" class="tap-to-call"><span>Register Now</span></a>				</div>
+			</section>
+			<section class="expand pack closed">
+
+				<a href="#" class="expand-btn">Bar Patrons </a>
+				<div class="content">
+					<h3>No wasted trips</h3>
+					<ul>
+						<li>Know beer listings before arrival</li>
+						<li>Know arcade and billiard options</li>
+						<li>Know dj or band situation a head of time.</li>
+					</ul>
+
+					<a href="#" class="tap-to-call"><span>Register now</span></a>				</div>
+
+			</section>
+
+			<footer>
+				
+				<nav>
+					
+				</nav>
+			</footer>
+
+		</div>
+		<div class="promoNumber numberDetector"></div>
+
+	
+	<script src="files/jquery.js"></script>
+	<script src="files/scripts.js"></script>
+
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script>
+		$(document).ready(function() {
+			//$('#form-style-2').on('click', '.tap-to-call', function (){
+			$('.tap-to-call').click(function(){
+				var str = $("#res").serialize();
+				$.ajax({
+					type: "POST",
+					url: "http://sndtracking.net/dev/bar_finder/address.php",
+					dataType: "text",
+					cache: false,
+					data: str,
+					success: function(data){
+						$("#div1").html(data);
+					},
+					error: function() {
+						alert('failed');
+					}					
+				}) 
+			});
+		});
+	</script>
+
+</body>
+</html>
+<!-- Localized -->
