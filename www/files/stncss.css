@@ -42,11 +42,11 @@
 
 .TFtable{
 	font-size: .8em;
-	width:100%; 
+	width:300px; 
 	border-collapse:collapse; 
 }
 .TFtable td{ 
-	padding:7px; border:#4e95f4 1px solid;
+	padding:3px; border:#4e95f4 1px solid;
 }
 /* provide some minimal visual accomodation for IE8 and below */
 .TFtable tr{
