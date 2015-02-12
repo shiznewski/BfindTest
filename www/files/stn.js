@@ -405,7 +405,7 @@ function checkCookie() {
     var username=getCookie("session");
     if (username!="") {
         //alert("Welcome again " + username);
-		window.location.href = "http://sndtracking.net/dev/bar_finder/manage_bar.php";
+		window.location.href = "manage_bar.html";
     }else{
 		//alert('Not logged in');
     }
