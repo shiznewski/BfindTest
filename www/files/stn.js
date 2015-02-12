@@ -272,7 +272,7 @@ function isPhonegap(){
 /* Bar inventory management */
 function barManageLoad(){
 	if (isPhonegap())
-		document.addEventListener("deviceready", barInfo('load'), false);
+		document.addEventListener("deviceready", BarInfo('load'), false);
 	else
 		BarInfo('load');
 }
