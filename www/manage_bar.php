@@ -27,7 +27,7 @@
 			</header>
 			<section class="banner home">
 					<div class="form-style-2" id="form-style-2">
-						<div class="form-style-2-heading" id="form-style-2-heading">Add Beers To Inventory:</div>
+					<div class="form-style-2-heading" id="form-style-2-heading">Add Beers To Inventory:</div>
 					<form id="inventory" onsubmit="return false;">
 								<br/>
 								<label for="field2"><span style="padding: 2px;">Beer/Brewery: <span class="required"></span></span><input type="text" class="input-field" name="beersearch" id="beersearch" value="" /></label>
@@ -50,10 +50,8 @@
 					</div>			
 					<br/><br/>
 					<div id="response" style="margin: 0 auto; text-align: center;">
-						<div class="form-style-2" id="form-style-2">
-							<div class="form-style-2-heading" id="form-style-2-heading">Remove Beers From Inventory:</div>
-							<div id="divresponse"></div>
-						</div>
+						<div class="form-style-2-heading" id="form-style-2-heading">Remove Beers From Inventory:</div>
+						<div id="divresponse"></div>
 					</div>									
 			</section>
 
