@@ -26,6 +26,10 @@
 				</nav>
 			</header>
 			<section class="banner home">
+				<div><button onclick="checkCookie(false);">check login</button></div>
+				<div style="width:280px;" id="logindiv"></div>
+			
+			
 				<div class="form-style-2" id="form-style-2">
 					<div class="form-style-2-heading" id="form-style-2-heading">Search Bars For:</div>
 					<form action="" id="res" method="post" onsubmit="return false;">
@@ -61,14 +65,13 @@
 					<a href="#" id="beerclose" style="display: none;" onclick="closeDiv(this, 'beeropen', 'beer');">Hide Beer Options</a> 
 					<div id="beer" style="padding-left: 5px;">
 							<br/>
-							<label for="field2"><span>Beer/Brewery<span class="required"></span></span><input type="text" class="input-field" name="beersearch" id="beersearch" value="" /></label>
+							<label for="beersearch"><span>Beer/Brewery<span class="required"></span></span><input type="text" class="input-field" name="beersearch" id="beersearch" value="" /></label>
 							<button id="searchBeerBtn" onclick="searchBeers();">Search</button>
 							<br/>
-							<label for="field3"><span id="beerresults" class="spanclass">Results: 0<span class="required"></span></span>
-								<br/><select style="width: 300px;" name="beerList[]" id="beerList" size="5" multiple="multiple">
-								</select>
-							</label>						
-							<br>
+							<label for="beerList"><span id="beerresults" class="spanclass">Results: 0</span></label>
+							<br/>
+							<select style="width: 280px;" name="beerList[]" id="beerList" size="5" multiple="multiple">
+							</select>	
 							<span id="beerresponse"></span>
 					</div>	
 			</div>			

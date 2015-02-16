@@ -26,6 +26,9 @@
 				</nav>
 			</header>
 			<section class="banner home">
+				<div><button onclick="checkCookie();">check cookie</button>
+				<div style="width:280px;" id="logindiv"></div>
+				
 				<div class="form-style-2" id="form-style-2">
 					<div class="form-style-2-heading" id="form-style-2-heading">Add Beers To Inventory:</div>
 					<form id="inventory" onsubmit="return false;">
@@ -38,8 +41,21 @@
 							<br/><select style="width: 280px;" name="beerList[]" id="beerList" size="5" multiple="multiple">
 							</select>
 						</label>								
-
+						<br>
+						<label for="beertype"><span id="beertype">Type:<span class="required"></span></span>
+							<select name="beertype" id="beertype" style="width:150px; padding: 2px; margin-top: 5px;">
+								<option value="bottle">Bottle</option>
+								<option value="draft">Draft</option>
+							</select>
+						</label>
+						<button onclick="BarInfo('update');">Add</button>
 					</form>				
+
+					<br/><br/>
+					<div id="response" style="margin: 0 auto; text-align: center; width: 300px;">
+						<div class="form-style-2-heading" id="form-style-2-heading">Remove Beers From Inventory:</div>
+						<div id="divresponse" style="width: 300px;"></div>
+					</div>	
 					
 				</div>
 			</section>
