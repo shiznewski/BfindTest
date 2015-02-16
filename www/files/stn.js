@@ -334,11 +334,11 @@ function BarInfo(type){
 }
 
 //Login Stuff
-function loginLoad(){
+function loginLoad(redir){
 	if (isPhonegap())
-		document.addEventListener("deviceready", checkCookie(), false);
+		document.addEventListener("deviceready", checkCookie(redir), false);
 	else
-		checkCookie();
+		checkCookie(redir);
 }
 function checkLogin(type){
 
@@ -408,6 +408,8 @@ function setCookie(cname, cvalue, exdays) {
 
 
 function checkCookie(redir) {
+	document.cookie = 'session' + '=; Path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+	document.cookie = 'username' + '=; Path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     var username=getCookie("session");
     if (username!="") {
         //alert("Welcome again " + username);
