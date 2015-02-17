@@ -411,7 +411,7 @@ function checkCookie(redir) {
 	//document.cookie = 'session' + '=; Path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 	//document.cookie = 'username' + '=; Path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     var username=getCookie("session");
-    if (username!="") {
+    if ((username!="") && (username!="null")) {
         //alert("Welcome again " + username);
 		if (redir == true)
 			window.location.href = "manage_bar.html";
