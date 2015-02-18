@@ -310,11 +310,12 @@ function BarInfo(type){
 		data: str,
 		success: function(data){
 			//alert('Response: ' + data);
-			var mysplit = data.split("||");
+			var mysplit = data.split("|");
 			if (mysplit[0] == 'Failed'){
 				//clear cookies and redirect to login
 				alert('delete cookies');
 				deleteCookies();
+				window.location.href = "login.html";
 			}
 			else{
 				$("#divresponse").html(data);
