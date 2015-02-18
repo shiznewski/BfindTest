@@ -26,6 +26,21 @@
 
 }
 
+#div1 .bar .beerlist{
+	padding: 0px;
+	font-weight: bold;
+}
+
+a.red1:hover, a.red1:active, a.red1:visited, a.red1:link {color: #0000FF;}
+
+#div1 .bar .bold{
+	font-weight: bold;
+}
+
+#div1 .bar .red{
+	color: red;
+}
+
 .collapsible div{
 
 	display: none;

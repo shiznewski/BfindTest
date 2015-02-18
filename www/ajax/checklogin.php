@@ -24,10 +24,23 @@
 				else{
 					$session = md5($_POST['username']  . $_POST['device']);
 				}
-				$query = "INSERT INTO tbl_sessions(username, sessionid, accesstime) VALUES('$_POST[username]','$session','" . time() . "')";
+				
+				$query = "SELECT * FROM tbl_sessions WHERE username='$_POST[username]' AND sessionid='$session'";
 				$result = mysql_query($query, $conn);
-				$num = mysql_affected_rows($conn);
-				echo "Success|$session";
+				$num = mysql_num_rows($result);
+				if ($num > 0){
+					//update
+					$query = "UPDATE tbl_sessions SET accesstime = " . time() . " WHERE username = '$_POST[username]' AND sessionid='$session'";
+					$result = mysql_query($query, $conn);
+					$num = mysql_affected_rows($conn);
+					echo "Success|$session";					
+				}
+				else{
+					$query = "INSERT INTO tbl_sessions(username, sessionid, accesstime) VALUES('$_POST[username]','$session','" . time() . "')";
+					$result = mysql_query($query, $conn);
+					$num = mysql_affected_rows($conn);
+					echo "Success|$session";
+				}
 			}
 			else{
 				echo "Failed|Invalid username or password";

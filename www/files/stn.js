@@ -310,7 +310,14 @@ function BarInfo(type){
 		data: str,
 		success: function(data){
 			//alert('Response: ' + data);
-			$("#divresponse").html(data);
+			var mysplit = data.split("||");
+			if (mysplit[0] == 'Failed'){
+				//clear cookies and redirect to login
+				deleteCookies();
+			}
+			else{
+				$("#divresponse").html(data);
+			}
 		},
 		error: function (jqXHR, exception) {
 			if (jqXHR.status === 0) {
@@ -406,12 +413,20 @@ function setCookie(cname, cvalue, exdays) {
 	}
 } 
 
+function deleteCookies(){
+	if (isPhonegap()){
+		window.localStorage.setItem('username', '');
+		window.localStorage.setItem('session', '');
+	}
+	else{
+		document.cookie = 'session' + '=; Path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+		document.cookie = 'username' + '=; Path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';	
+	}
+}
 
 function checkCookie(redir) {
-	//document.cookie = 'session' + '=; Path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-	//document.cookie = 'username' + '=; Path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     var username=getCookie("session");
-    if ((username!="") && (username !== null)) {
+    if (username!="") {
         //alert("Welcome again " + username);
 		if (redir == true)
 			window.location.href = "manage_bar.html";
@@ -429,6 +444,8 @@ function getCookie(cname) {
 	if(isPhonegap()){
 		//get local storage
 		var value = window.localStorage.getItem(cname);
+		if (value === null)
+			value = "";
 		return value;
 	}
 	else{

@@ -108,20 +108,70 @@ $userlong = $array['longitude'];
 //	$where .= ')';
 
 /* END the WHERE values from the form submit */
-$query = "SELECT barid, barname, baraddress, barcity, barzip, ( 3959 * acos( cos( radians(" . $userlat . ") ) * cos( radians( barlat ) ) * cos( radians( barlong ) - radians(" . $userlong . ") ) + sin( radians(" . $userlat . ") ) * sin( radians( barlat ) ) ) ) AS distance FROM tbl_bars " . $where . " HAVING distance < 25 ORDER BY distance LIMIT 0 , 20;";
+
+
+
+$query = "SELECT *, ( 3959 * acos( cos( radians(" . $userlat . ") ) * cos( radians( barlat ) ) * cos( radians( barlong ) - radians(" . $userlong . ") ) + sin( radians(" . $userlat . ") ) * sin( radians( barlat ) ) ) ) AS distance FROM tbl_bars " . $where . " HAVING distance < 25 ORDER BY distance LIMIT 0 , 20;";
+//$query = "SELECT barid, barname, baraddress, barcity, barzip, ( 3959 * acos( cos( radians(" . $userlat . ") ) * cos( radians( barlat ) ) * cos( radians( barlong ) - radians(" . $userlong . ") ) + sin( radians(" . $userlat . ") ) * sin( radians( barlat ) ) ) ) AS distance FROM tbl_bars " . $where . " HAVING distance < 25 ORDER BY distance LIMIT 0 , 20;";
 $result = mysql_query($query, $conn);
-//echo $query . "<br/>";
 $num = mysql_num_rows($result);
 
 if ($num > 0){
 	echo 'Results: ' . $num . '<br><br/>';
+	$x = 1;
 	while($row = mysql_fetch_assoc($result)){
+		
+		$gameoutput = '';
+		if ($row['barpool'] == 'YES')
+			$gameoutput .= '<span class="address">Pool tables</span><br/>';
+		
+		if (strtolower($row['darts']) == 'yes')
+			$gameoutput .= '<span class="address">Darts</span><br/>';
+		
+		if (strtolower($row['quizzo']) != 'un'){
+			//split the string for dates/times.
+			$split = explode("|",$row['quizzo']);
+			$gameoutput .= '<span class="address">Quizzo: ';
+			foreach ($split as $key => $value){
+				$gameoutput .= $value . ', ';
+			}
+			if (substr($gameoutput, -2) == ', ')
+				$gameoutput = substr($gameoutput, 0, strlen($gameoutput)-2);			
+			$gameoutput .= '</span>';
+		}
+		if (substr($gameoutput, -5) == '<br/>')
+			$gameoutput = substr($gameoutput, 0, strlen($gameoutput)-5);		
+		
+		//Query for the beer list
+		$query = "SELECT a.beerid, typeid, beer, brewery FROM tbl_barinventory a, tbl_beerdata b WHERE barid = $row[barid] and a.beerid = b.beerid ";
+		$query .= " Order by brewery, beer";
+		$result2 = mysql_query($query, $conn);
+		$num = mysql_num_rows($result2);
+		$beerlist = '';
+		if($num > 0){
+			while ($row2 = mysql_fetch_assoc($result2)){
+				$beerlist .= $row2['brewery'] . ' - ' . $row2['beer'] . '<br/>';
+			}
+		}
 		$output = '<div class="bar">';
 			$output .= '<span class="boldi">'. $row['barname'] . '</span><br/>';
-			$output .= '<span class="address">' . $row['baraddress'] . ' ' . $row['barcity'] . ' ' . $row['barzip'] . '</span>';
+			$output .= '<span class="address">' . $row['baraddress'] . ' ' . $row['barcity'] . ' ' . $row['barzip'] . '</span><br/>';
+			$output .= '<span class="address bold red">Game Options</span><br>';
+			$output .=  $gameoutput;
+			$output .= '<br/>';
+			$output .= '<span class="address bold red">Music Options</span><br>';	
+			$output .= $musicoutput;
+			$output .= '<div style="padding:5px; font-size: 12px; font-weight: bold;">';
+			$output .= '<a class="red1" href="#" id="' . $row['barid'] . 'open" onclick="openDiv(this, \'' . $row['barid'] . 'close\', \'' . $row['barid'] . '\');">Show Beer List</a>';
+			$output .= '<a class="red1" href="#" id="' . $row['barid'] . 'close" style="display: none;" onclick="closeDiv(this, \'' . $row['barid'] . 'open\', \'' . $row['barid'] . '\');">Hide Beer List</a>';
+			$output .= '</div>';
+			$output .= '';
+			$output .= '<div id="' . $row['barid'] . '" style="width: 280px; margin:0; padding:5px;display: none;">' . $beerlist . '</div>';
 		$output .= '</div>';
+		
 		echo $output;
 		$output = '';
+		$x = $x +1;
 	}
 }
 else{
