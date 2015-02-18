@@ -313,6 +313,7 @@ function BarInfo(type){
 			var mysplit = data.split("||");
 			if (mysplit[0] == 'Failed'){
 				//clear cookies and redirect to login
+				alert('delete cookies');
 				deleteCookies();
 			}
 			else{
@@ -409,7 +410,7 @@ function setCookie(cname, cvalue, exdays) {
 		var d = new Date();
 		d.setTime(d.getTime() + (exdays*24*60*60*1000));
 		var expires = "expires="+d.toUTCString();
-		document.cookie = cname + "=" + cvalue + "; " + expires;
+		document.cookie = cname + "=" + cvalue + "; Path=/; " + expires;
 	}
 } 
 
@@ -457,6 +458,5 @@ function getCookie(cname) {
 			if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
 		}
 	}
-	return "";
 } 
 //End cookie handling

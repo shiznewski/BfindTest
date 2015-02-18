@@ -63,8 +63,9 @@ if (isset($_POST['type'])){
 	else{
 		//add entry to database for bar id.
 		echo 'no results to return';
-	}
 		echo "Failed|Login";
+	}
+		
 }
 else{
 
