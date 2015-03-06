@@ -56,7 +56,7 @@ header nav ul li a.tv {background-image:url(../img/icon-tv.png);}
 header nav ul li a.internet {background-image:url(../img/icon-internet.png);}
 header nav ul li a.phone {background-image:url(../img/icon-phone.png);}
 
-section.banner {text-align:center; padding:10px 0 0; position:relative;}
+section.banner {text-align:center; padding:0 0 0; position:relative;}
 section.banner.home h2 {position:absolute;  font-size:14px; font-style:italic; color:#6a6a6a; text-align:left;}
 section.banner.home h2 strong {display:block; color:#444444; font-style:normal; font-weight:bold; font-size:26px;}
 

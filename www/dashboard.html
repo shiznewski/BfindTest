@@ -9,7 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="files/stncss.css">	
 </head>
 
-	<body onload="indexLoad();">
+	<body onload="dashboardLoad();">
 		<div class="container" id="container">
 			
 			<header>
@@ -142,7 +142,7 @@
 				var str = $("#res").serialize();
 				$.ajax({
 					type: "POST",
-					url: "http://sndtracking.net/dev/bar_finder/ajax/address.php",
+					url: "http://sndtracking.net/dev/bar_finder/address.php",
 					dataType: "text",
 					cache: false,
 					data: str,

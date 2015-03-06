@@ -26,7 +26,7 @@ if (isset($_POST['type'])){
 			
 			//Here we have a valid session.
 			//Lookup the bar id for this user.
-			$query = "SELECT * FROM tbl_users_bar WHERE username = '$_POST[username]'"; 
+			$query = "SELECT * FROM tbl_users WHERE email = '$_POST[username]'"; 
 			$result = mysql_query($query, $conn);
 			$num = mysql_num_rows($result);		
 			if($num > 0){

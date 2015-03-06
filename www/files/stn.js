@@ -10,7 +10,9 @@ function closeDiv(one,two,three) {
 	document.getElementById(three).style.display = 'none';
 }
 
-
+function navupdategames(){
+	window.location.href = "updategames.html";
+}
 
 $(function(){
 	$("#beersearch").keyup(function(event){
@@ -42,7 +44,7 @@ function searchBeers(){
 
 	$.ajax({
 		type: "POST",
-		url: "http://sndtracking.net/dev/bar_finder/beersearch.php",
+		url: "http://sndtracking.net/dev/bar_finder/ajax/beersearch.php",
 		dataType: "text",
 		cache: false,
 		data: str,
@@ -88,8 +90,7 @@ function searchBeers(){
 }
 
 
-function removeOptions(selectbox)
-{
+function removeOptions(selectbox){
 	
     var i;
     for(i=selectbox.options.length-1;i>=0;i--)
@@ -111,7 +112,7 @@ function lookupCity(){
 	//alert(str);
 	$.ajax({
 		type: "POST",
-		url: "http://sndtracking.net/dev/bar_finder/cityzip.php",
+		url: "http://sndtracking.net/dev/bar_finder/ajax/cityzip.php",
 		dataType: "text",
 		cache: false,
 		data: str,
@@ -169,7 +170,7 @@ function lookupZip(){
 	//alert(str);
 	$.ajax({
 		type: "POST",
-		url: "http://sndtracking.net/dev/bar_finder/cityzip.php",
+		url: "http://sndtracking.net/dev/bar_finder/ajax/cityzip.php",
 		dataType: "text",
 		cache: false,
 		data: str,
@@ -221,20 +222,35 @@ function lookupZip(){
 }
 
 
-function barRegister(){
+function userRegister(strType){
 	//barRegisterbtn
-	var str = '&type=bar';
+	var str = '';
+	if (strtype == 'bar')
+		str = '&type=bar';
+	else
+		str = '&type=user';
 	var str2 = $("#res").serialize();
 	str2 = str2 + str;
 	$.ajax({
 		type: "POST",
-		url: "http://sndtracking.net/dev/bar_finder/signup_submit.php",
+		url: "http://sndtracking.net/dev/bar_finder/ajax/signup_submit.php",
 		dataType: "text",
 		cache: false,
 		data: str2,
 		success: function(data){
-			alert(data);
-			$("#div1").html(data);
+			//Data returned: Success/Fail|Output Message
+
+			var mysplit = data.split("|");
+			if (mysplit[0] == 'Failed'){
+				$("#div1").html(data);
+			}
+			else{
+				//if regular user then goto the dashboard
+				if (strtype == 'user'){
+					window.location.href = "dashboard.html";
+				}
+			}
+
 		},
 		error: function (jqXHR, exception) {
 			if (jqXHR.status === 0) {
@@ -269,6 +285,75 @@ function isPhonegap(){
 	} 
 }
 
+/* Index load */
+function indexLoad(){
+	if (isPhonegap())
+		document.addEventListener("deviceready", indexInfo(), false);
+	else
+		indexInfo();
+}
+
+
+
+function indexInfo(){
+	checkLoggedIn('index');
+}
+
+/* End index load */
+
+/* Dashboard load */
+function dashboardLoad(){
+	if (isPhonegap())
+		document.addEventListener("deviceready", indexInfo(), false);
+	else
+		indexInfo();
+}
+
+
+
+function dashboardInfo(){
+	checkLoggedIn('dashboard');
+}
+
+/* End index load */
+
+function outputNav(loggedin,type,page){
+	var strhtml = '';
+	if (loggedin == true){
+		if(type == 'user'){
+			if(page == 'index'){
+				//Show dashboard and logout
+				strhtml = strhtml + '<div style="width: 155px; display: inline-block;"><a href="dashboard.html" class="myButton">Dashboard</a></div>';
+				strhtml = strhtml +  '<div style="width: 164px; display: inline-block; text-align:right;"><a href="#" onclick="logout();" class="myButton">Logout</a></div>';		
+			}
+			else{
+				//show search and logout
+				strhtml = strhtml + '<div style="width: 155px; display: inline-block;"><a href="index.html" class="myButton">Search</a></div>';
+				strhtml = strhtml +  '<div style="width: 164px; display: inline-block; text-align:right;"><a href="#" onclick="logout();" class="myButton">Logout</a></div>';		
+			}
+		}
+		else{
+			if (page =='index'){
+				//Show manage bar and logout
+				strhtml = strhtml + '<div style="width: 155px; display: inline-block;"><a href="manage_bar.html" class="myButton">Manage Bar</a></div>';
+				strhtml = strhtml +  '<div style="width: 164px; display: inline-block; text-align:right;"><a href="#" onclick="logout();" class="myButton">Logout</a></div>';		
+			}
+			else{
+				//show search and logout
+				strhtml = strhtml + '<div style="width: 155px; display: inline-block;"><a href="search.html" class="myButton">Search</a></div>';
+				strhtml = strhtml +  '<div style="width: 164px; display: inline-block; text-align:right;"><a href="#" onclick="logout();" class="myButton">Logout</a></div>';		
+			}
+		}
+	}
+	else{
+		//show login link only
+		strhtml = strhtml + '<div style="width: 155px; display: inline-block;"></div>';
+		strhtml = strhtml +  '<div style="width: 164px; display: inline-block; text-align:right;"><a href="login.html" class="myButton">Login</a></div>';
+	}
+	$("#mynav").html(strhtml);
+}
+
+
 /* Bar inventory management */
 function barManageLoad(){
 	if (isPhonegap())
@@ -278,7 +363,7 @@ function barManageLoad(){
 }
 
 function BarInfo(type){
-	
+	checkLoggedIn('manage');
 	//Replace these values with the values saved from local storage
 	var username = getCookie("username");
 	var session = getCookie("session");
@@ -342,14 +427,87 @@ function BarInfo(type){
 
 }
 
+function barOptionsLoad(){
+	if (isPhonegap())
+		document.addEventListener("deviceready", barOptions('load'), false);
+	else
+		barOptions('load');
+}
+
+function barOptions(type){
+	checkLoggedIn('baroptions');
+	//Replace these values with the values saved from local storage
+	var username = getCookie("username");
+	var session = getCookie("session");
+
+	var device = '';
+	if (isPhonegap()){
+		var deviceID = device.uuid;
+		device = deviceID;
+	}
+	else
+		device = 'computer';	
+	
+	
+	var str = "type=" + type;
+	var str = str + "&username=" + username + "&session=" + session + '&device=' + device;
+	if (type == 'update'){
+		str = $("#inventory").serialize() + '&' + str;
+	}
+	$.ajax({
+		type: "POST",
+		url: "http://sndtracking.net/dev/bar_finder/ajax/baroptions.php",
+		dataType: "text",
+		cache: false,
+		data: str,
+		success: function(data){
+			//alert('Response: ' + data);
+			var mysplit = data.split("|");
+			if (mysplit[0] == 'Failed'){
+				//clear cookies and redirect to login
+				alert('delete cookies');
+				deleteCookies();
+				window.location.href = "login.html";
+			}
+			else{
+				$("#baroptions").html(data);
+			}
+		},
+		error: function (jqXHR, exception) {
+			if (jqXHR.status === 0) {
+				alert('Not connect.\n Verify Network.');
+			} else if (jqXHR.status == 404) {
+				alert('Requested page not found. [404]');
+			} else if (jqXHR.status == 500) {
+				alert('Internal Server Error [500].');
+			} else if (exception === 'parsererror') {
+				alert('Requested JSON parse failed.');
+			} else if (exception === 'timeout') {
+				alert('Time out error.');
+			} else if (exception === 'abort') {
+				alert('Ajax request aborted.');
+			} else {
+				alert('Uncaught Error.\n' + jqXHR.responseText);
+			}
+		}				
+	}) 
+}
+
+/* End bar inventory management */
+
 //Login Stuff
+function logout(){
+	deleteCookies();
+	window.location.href = "index.html";
+}
+
 function loginLoad(redir){
 	if (isPhonegap())
 		document.addEventListener("deviceready", checkCookie(redir), false);
 	else
 		checkCookie(redir);
 }
-function checkLogin(type){
+function checkLoginForm(type){
 
 	var username = document.getElementById('username').value;
 	var password = document.getElementById('password').value;
@@ -371,12 +529,20 @@ function checkLogin(type){
 		data: str,
 		success: function(data){
 			//alert('Response: ' + data);
-			//Data should return sucess|sessionid;
+			//Data should return sucess|type|sessionid;
 			var mysplit = data.split("|");
+			alert(data);
 			if (mysplit[0] == 'Success'){
-				setCookie('session', mysplit[1], 5);
+				setCookie('session', mysplit[2], 5);
 				setCookie('username', username, 5);
-				window.location.href = "manage_bar.html";
+
+				if (mysplit[1] == 'bar')
+					window.location.href = "manage_bar.html";
+				else
+					window.location.href = "dashboard.html";
+			}
+			else{
+				alert(data);
 			}
 		},
 		error: function (jqXHR, exception) {
@@ -400,6 +566,65 @@ function checkLogin(type){
 
 }
 
+function checkLoggedIn(page){
+	var ret = false;
+	var sess = getCookie("session");
+	var usrname = getCookie("username");
+	if ((sess != '') && (usrname != '')){
+
+		var device = '';
+		if (isPhonegap()){
+			var deviceID = device.uuid;
+			device = deviceID;
+		}
+		else
+			device = 'computer';
+		var str = "type=session";
+		str = str + '&username=' + usrname + '&session=' + sess + '&device=' + device;
+		$.ajax({
+			type: "POST",
+			url: "http://sndtracking.net/dev/bar_finder/ajax/checklogin.php",
+			dataType: "text",
+			cache: false,
+			data: str,
+			mypage: page,
+			success: function(data){
+				//alert('Response: ' + data);
+				//Data should return sucess|type|sessionid;
+				var mysplit = data.split("|");
+				if (mysplit[0] == 'Success'){
+					setCookie('session', mysplit[2], 5);
+					setCookie('username', usrname, 5);
+					outputNav(true,mysplit[1],this.mypage);
+				}
+				else{
+					outputNav(false,'',this.mypage);
+				}
+			},
+			error: function (jqXHR, exception) {
+				if (jqXHR.status === 0) {
+					alert('Not connect.\n Verify Network.');
+				} else if (jqXHR.status == 404) {
+					alert('Requested page not found. [404]');
+				} else if (jqXHR.status == 500) {
+					alert('Internal Server Error [500].');
+				} else if (exception === 'parsererror') {
+					alert('Requested JSON parse failed.');
+				} else if (exception === 'timeout') {
+					alert('Time out error.');
+				} else if (exception === 'abort') {
+					alert('Ajax request aborted.');
+				} else {
+					alert('Uncaught Error.\n' + jqXHR.responseText);
+				}
+			}				
+		}) 	
+	}
+	else{
+		outputNav(false,'',page);
+	}
+}
+//End Login Stuff
 
 //Cookie Handling
 function setCookie(cname, cvalue, exdays) {
@@ -427,17 +652,17 @@ function deleteCookies(){
 }
 
 function checkCookie(redir) {
-    var username=getCookie("session");
-    if (username!="") {
+    var sess=getCookie("session");
+    if (sess!="") {
         //alert("Welcome again " + username);
 		if (redir == true)
 			window.location.href = "manage_bar.html";
 		else{
-			$("#logindiv").html('Set: ' + username);
+			//$("#logindiv").html('Set: ' + username);
 		}
     }else{
 		//alert('Not logged in');
-		$("#logindiv").html('None:');
+		//$("#logindiv").html('None:');
     }
 } 
 
@@ -458,6 +683,7 @@ function getCookie(cname) {
 			while (c.charAt(0)==' ') c = c.substring(1);
 			if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
 		}
+		return "";
 	}
 } 
 //End cookie handling

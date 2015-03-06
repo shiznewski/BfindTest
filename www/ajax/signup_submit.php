@@ -20,55 +20,55 @@ if (isset($_POST['type'])){
 		$errmsg = '';
 		$errnum = 0;
 		if ($fname == ''){
-			$errmsg = 'Must fill in first name';
+			$errmsg = 'Fail|Must fill in first name';
 			$errnum = 1;
 			echo $errmsg;
 			exit();			
 		}
 		if ($lname==''){
-			$errmsg = 'Must fill in last name';
+			$errmsg = 'Fail|Must fill in last name';
 			$errnum = 2;
 			echo $errmsg;
 			exit();			
 		}
 		if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-			$errmsg = 'Must enter a valida email';
+			$errmsg = 'Fail|Must enter a valida email';
 			$errnum = 3;
 			echo $errmsg;
 			exit();
 		}
 		if ($barname==''){
-			$errmsg = 'Must fill in bar name';
+			$errmsg = 'Fail|Must fill in bar name';
 			$errnum = 4;
 			echo $errmsg;
 			exit();			
 		}		
 		if ($baraddress==''){
-			$errmsg = 'Must fill in bar address';
+			$errmsg = 'Fail|Must fill in bar address';
 			$errnum = 5;
 			echo $errmsg;
 			exit();			
 		}		
 		if ($barstate==''){
-			$errmsg = 'Must select bar state';
+			$errmsg = 'Fail|Must select bar state';
 			$errnum = 6;
 			echo $errmsg;
 			exit();			
 		}				
 		if ($barcity==''){
-			$errmsg = 'Must select bar city';
+			$errmsg = 'Fail|Must select bar city';
 			$errnum = 7;
 			echo $errmsg;
 			exit();			
 		}
 		if ($barzip==''){
-			$errmsg = 'Must select bar zip';
+			$errmsg = 'Fail|Must select bar zip';
 			$errnum = 8;
 			echo $errmsg;
 			exit();			
 		}			
 		if ($barphone==''){
-			$errmsg = 'Must enter the bars phone number';
+			$errmsg = 'Fail|Must enter the bars phone number';
 			$errnum = 9;
 			echo $errmsg;
 			exit();			
@@ -78,7 +78,7 @@ if (isset($_POST['type'])){
 				
 			}	
 			else{
-				$errmsg = 'Must enter phone number as xxx-xxx-xxxx';
+				$errmsg = 'Fail|Must enter phone number as xxx-xxx-xxxx';
 				$errnum = 10;
 				echo $errmsg;
 				exit();				
@@ -124,25 +124,70 @@ if (isset($_POST['type'])){
 	}
 	else{
 		//Submit regular user registration
-		$search = mysql_real_escape_string($_POST['search']);
-		$query = "SELECT DISTINCT city FROM tbl_cityinfo WHERE stateabbr = '$search' order by city";
+		//submit bar registration
+		$fname = mysql_real_escape_string($_POST['fname']);
+		$lname = mysql_real_escape_string($_POST['lname']);
+		$email = mysql_real_escape_string($_POST['baremail']);
+		$password $_POST['password'];
+		
+		//check variables 
+		$errmsg = '';
+		$errnum = 0;
+		if ($fname == ''){
+			$errmsg = 'Fail|Must fill in first name';
+			$errnum = 1;
+			echo $errmsg;
+			exit();			
+		}
+		if ($lname==''){
+			$errmsg = 'Fail|Must fill in last name';
+			$errnum = 2;
+			echo $errmsg;
+			exit();			
+		}
+		if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+			$errmsg = 'Fail|Must enter a valida email';
+			$errnum = 3;
+			echo $errmsg;
+			exit();
+		}
+		if($password == ''){
+			$errmsg = "Fail|You must enter a password";
+			$errnum = 4;
+			echo $errmsg;
+			exit();
+		}
+		$password = md5($email . $password);
 
-		$result = mysql_query($query, $conn);
-		$num = mysql_num_rows($result);
-		//echo "num: " . $num;
-		if ($num > 0){
-			$output = '';
-			while($row = mysql_fetch_assoc($result)){
-				$output .= $row['city'] . '||';
-			}
+		//data is validated
+		
+		/* Not sure what to do about email address yet as 1 bar owner or manager could try to sign up several bars.
+			//confirm email address does not exist
+			$query = "SELECT * FROM tbl_users_bars WHERE email = '$email'";
+			$result = mysql_query($query, $conn);
+			$num = mysql_num_rows($result);
 			
-			if (substr($output, -2) == '||'){
-				$output = substr($output, 0, -2);
+			if ($num > 0){
+				$errmsg = 'Email address already used ';
+				$errnum = 9;
+				echo $errmsg;
+				exit();
 			}
-			echo $output;
+		*/
+		
+		//insert into database and send a welcome email.
+	
+		$query = "INSERT INTO tbl_users(fname,lname,email,password) ";
+		$query .= "VALUES('$fname','$lname','$email','$password')";
+		$result = mysql_query($query, $conn);
+		$num = mysql_affected_rows($conn);
+		if ($num >0){
+		
+			echo 'Success|'
+		
 		}
 		else{
-			echo 'no results found';
+			echo 'Fail|There was a problem inserting into the database';
 		}
 	}
 }
